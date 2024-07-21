@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Grid Data</title>
+    <script src="https://unpkg.com/ag-grid-community/dist/ag-grid-community.min.noStyle.js"></script>
+    <link rel="stylesheet" href="https://unpkg.com/ag-grid-community/styles/ag-grid.css">
+    <link rel="stylesheet" href="https://unpkg.com/ag-grid-community/styles/ag-theme-alpine.css">
+</head>
+<body>
+    <h1>Grid Data</h1>
+    <div id="myGrid" style="width: 100%; height: 500px;" class="ag-theme-alpine"></div>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            fetch('http://localhost:8000/api/grid-data/')
+                .then(response => response.json())
+                .then(data => {
+                    var gridOptions = {
+                        columnDefs: [
+                            { field: 'id', editable: true },
+                            { field: 'name' },
+                            { field: 'age' },
+                            { field: 'country' }
+                        ],
+                        rowData: data
+                    };
+                    var gridDiv = document.querySelector('#myGrid');
+                    new agGrid.Grid(gridDiv, gridOptions);
+                })
+                .catch(error => console.error('Error fetching data:', error));
+        });
+    </script>
+</body>
+</html>
