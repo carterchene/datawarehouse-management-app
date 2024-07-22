@@ -68,10 +68,5 @@ The application is designed to be deployed on Azure App Service, allowing for ea
 
 ## 💡 Why This Matters
 
-A perennial problem I've found working for tons of clients is the need for business users to write data at the data warehouse level (such as defining precedence order of source systems). I've created solutions to this using Streamlit, Excel, Django, Sharepoint, and PowerApps. I wanted to test out FastAPI + AgGid as another option. I quite like this solutions simplicity (relative to something like Django) but total control over the front end (compared to something like Streamlit). 
+A perennial problem I've found working for tons of clients is the need for business users to write data at the data warehouse level (such as defining precedence order of source systems). I've created solutions to this using Streamlit, Excel, Django, Sharepoint, and PowerApps. I wanted to test out FastAPI + AgGrid as another option. I quite like this solutions simplicity (relative to something like Django) but total control over the front end (compared to something like Streamlit). 
 
-
-
-## 📄 License
-
-[Include your chosen license here]
