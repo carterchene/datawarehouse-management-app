@@ -1,36 +1,133 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Grid Data</title>
+    <title>Column Precedence</title>
     <script src="https://unpkg.com/ag-grid-community/dist/ag-grid-community.min.noStyle.js"></script>
     <link rel="stylesheet" href="https://unpkg.com/ag-grid-community/styles/ag-grid.css">
     <link rel="stylesheet" href="https://unpkg.com/ag-grid-community/styles/ag-theme-alpine.css">
+    <link rel="stylesheet" href="/static/styles.css">
 </head>
+
 <body>
-    <h1>Grid Data</h1>
-    <div id="myGrid" style="width: 100%; height: 500px;" class="ag-theme-alpine"></div>
+    <h1>Master Data Management</h1>
+    <div id="controls">
+        <button id="saveChanges">Save Changes</button>
+    </div>
+    <div id="myGrid" class="ag-theme-alpine"></div>
+
+    <div id="loadingOverlay">
+        <div>Saving changes...</div>
+    </div>
 
     <script>
-        document.addEventListener('DOMContentLoaded', function() {
-            fetch('http://localhost:8000/api/grid-data/')
+        const sourceSystems = [
+            'CRM', 'ERP', 'Marketing'
+        ];
+
+        let changedRows = new Set();
+        let saveButton;
+
+        function showLoading() {
+            document.getElementById('loadingOverlay').style.display = 'block';
+            saveButton.disabled = true;
+        }
+
+        function hideLoading() {
+            document.getElementById('loadingOverlay').style.display = 'none';
+            saveButton.disabled = false;
+        }
+
+        function saveChangesToServer(changes) {
+            showLoading();
+            fetch('http://localhost:8000/api/column-precedence/batch', {
+                method: 'PUT',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify(changes)
+            })
+                .then(response => response.json())
+                .then(result => {
+                    console.log('Update result:', result);
+                    alert('Changes saved successfully!');
+                    changedRows.clear();
+                })
+                .catch(error => {
+                    console.error('Error updating data:', error);
+                    alert('Error saving changes. Please try again.');
+                })
+                .finally(() => {
+                    hideLoading();
+                });
+        }
+
+        document.addEventListener('DOMContentLoaded', function () {
+            saveButton = document.getElementById('saveChanges');
+
+            fetch('http://localhost:8000/api/column-precedence/')
                 .then(response => response.json())
                 .then(data => {
                     var gridOptions = {
                         columnDefs: [
-                            { field: 'id', editable: true },
-                            { field: 'name' },
-                            { field: 'age' },
-                            { field: 'country' }
+                            { field: 'column', editable: false },
+                            {
+                                field: 'first_source',
+                                editable: true,
+                                cellEditor: 'agSelectCellEditor',
+                                cellEditorParams: {
+                                    values: sourceSystems
+                                },
+                                singleClickEdit: true,
+                            },
+                            {
+                                field: 'second_source',
+                                editable: true,
+                                cellEditor: 'agSelectCellEditor',
+                                cellEditorParams: {
+                                    values: sourceSystems
+                                },
+                                singleClickEdit: true,
+                            },
+                            {
+                                field: 'third_source',
+                                editable: true,
+                                cellEditor: 'agSelectCellEditor',
+                                cellEditorParams: {
+                                    values: sourceSystems
+                                },
+                                singleClickEdit: true,
+                            }
                         ],
-                        rowData: data
+                        rowData: data,
+                        domLayout: 'autoHeight',
+                        onGridReady: function (params) {
+                            params.api.sizeColumnsToFit();
+                        },
+                        onCellValueChanged: function (event) {
+                            changedRows.add(event.data.column);
+                        }
                     };
                     var gridDiv = document.querySelector('#myGrid');
                     new agGrid.Grid(gridDiv, gridOptions);
+
+                    saveButton.addEventListener('click', function () {
+                        const allData = [];
+                        gridOptions.api.forEachNode(node => allData.push(node.data));
+                        const changedData = allData.filter(row => changedRows.has(row.column));
+
+                        if (changedData.length > 0) {
+                            saveChangesToServer(changedData);
+                        } else {
+                            alert('No changes to save.');
+                        }
+                    });
                 })
                 .catch(error => console.error('Error fetching data:', error));
         });
     </script>
 </body>
+
 </html>
