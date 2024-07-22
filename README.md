@@ -1,4 +1,4 @@
-# 🎛️ Master Data Source System Precedence Manager
+# 🎛️ Master Data Source Manager
 
 ## 🖼️ Project Screenshot
 [Insert your project screenshot here]
