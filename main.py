@@ -29,8 +29,6 @@ app.mount('/static', StaticFiles(directory='static'), name="static")
 creds_path = os.getenv('GOOGLE_APPLICATION_CREDENTIALS')
 credentials = service_account.Credentials.from_service_account_file(creds_path)
 client = bigquery.Client(credentials=credentials, project=credentials.project_id)
-
-# Define your dataset and table
 dataset_id = 'datamart'
 table_id = 'column_precedence'
 
@@ -87,9 +85,8 @@ async def update_column_precedence_batch(request: Request, items: list[ColumnPre
         )
         
         job = client.load_table_from_json(rows_to_update, temp_table_id, job_config=job_config)
-        job.result()  # Wait for the job to complete
+        job.result()  
         
-        # Perform the update
         update_query = """
         UPDATE `{}.{}` main
         SET 
@@ -101,12 +98,10 @@ async def update_column_precedence_batch(request: Request, items: list[ColumnPre
         """.format(dataset_id, table_id, temp_table_id)
         
         query_job = client.query(update_query)
-        query_job.result()  # Wait for the job to complete
+        query_job.result()  
         
-        # Clean up the temporary table
         client.delete_table(temp_table_id)
-        
-        # Clear the cache
+    
         cache.clear()
         
         return {"message": f"Successfully updated {len(items)} rows"}
