@@ -1,7 +1,8 @@
-# 🎛️ Master Data Source Manager
+# 🎛️ Master Data Manager
 
 ## 🖼️ Project Screenshot
-[Insert your project screenshot here]
+![image](images/project-screenshot.png)
+
 
 ## 🚀 Project Overview
 
@@ -12,7 +13,7 @@ The application allows business users to decide which source systems should be u
 ## ✨ Features
 
 - 🌐 Interactive web interface for viewing and editing column precedence data
-- ⚡ Real-time updates using AG Grid
+- ⚡ Data viewing and editing with AG Grid
 - 🔙 Backend API built with FastAPI
 - 💾 Data storage and retrieval using Google BigQuery
 - ☁️ Deployment-ready for Azure App Service
@@ -40,7 +41,7 @@ The application allows business users to decide which source systems should be u
 2. ✏️ Business users can edit the precedence directly in the grid.
 3. 💾 Changes are collected and can be saved in bulk.
 4. 🔄 The backend processes these changes and updates the BigQuery table.
-5. 📈 The updated data is then reflected in downstream data processes, ensuring that data is pulled from the correct source systems according to the latest precedence rules.
+5. 📈 The updated data is then reflected in downstream data processes (in theory, not actually), ensuring that data is pulled from the correct source systems according to the latest precedence rules.
 
 ## 🧩 Key Components
 
@@ -57,26 +58,19 @@ The application allows business users to decide which source systems should be u
 
 ## 🚀 Deployment
 
-The application is designed to be deployed on Azure App Service, allowing for easy scaling and management. Deployment instructions are included in the project documentation.
+The application is designed to be deployed on Azure App Service, allowing for easy scaling and management.
 
 ## 🔮 Future Enhancements
 
 - 👤 Implement user authentication and role-based access control
 - 📝 Add audit logging for all changes
 - 🖥️ Develop a more comprehensive UI for managing other aspects of master data
-- 🔍 Integrate with data quality monitoring tools
 
 ## 💡 Why This Matters
 
-Effective master data management is crucial for businesses to maintain data consistency and accuracy across various systems. By providing a user-friendly interface for managing data source precedence, this tool empowers business users to directly influence data quality without needing technical intervention for every change. This can lead to more agile data management practices and improved overall data reliability in the organization.
+A perennial problem I've found working for tons of clients is the need for business users to write data at the data warehouse level (such as defining precedence order of source systems). I've created solutions to this using Streamlit, Excel, Django, Sharepoint, and PowerApps. I wanted to test out FastAPI + AgGid as another option. I quite like this solutions simplicity (relative to something like Django) but total control over the front end (compared to something like Streamlit). 
 
-## 🏁 Getting Started
 
-(Include instructions for setting up the project locally, including any necessary environment variables, dependencies, and how to run the application)
-
-## 🤝 Contributing
-
-This is a portfolio project, but suggestions and feedback are welcome. Please open an issue or submit a pull request if you have ideas for improvements.
 
 ## 📄 License
 
