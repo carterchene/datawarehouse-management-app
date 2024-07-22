@@ -23,10 +23,10 @@ The application allows business users to decide which source systems should be u
 <p align="center">
   <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/6/61/HTML5_logo_and_wordmark.svg/120px-HTML5_logo_and_wordmark.svg.png" alt="HTML5" width="50"/>
   <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/6/6a/JavaScript-logo.png/120px-JavaScript-logo.png" alt="JavaScript" width="50"/>
-  <img src="https://www.ag-grid.com/images/ag-grid-logo.png" alt="AG Grid" height="50"/>
+  <img src="https://blog.ag-grid.com/content/images/2021/11/logo-dark-theme-white-writing.svg" alt="AG Grid" height="50"/>
   <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/c/c3/Python-logo-notext.svg/121px-Python-logo-notext.svg.png" alt="Python" width="50"/>
   <img src="https://fastapi.tiangolo.com/img/logo-margin/logo-teal.png" alt="FastAPI" width="100"/>
-  <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/2/29/Google-BigQuery-Logo.svg/120px-Google-BigQuery-Logo.svg.png" alt="BigQuery" width="70"/>
+  <img src="https://www.vectorlogo.zone/logos/google_bigquery/google_bigquery-ar21.svg" alt="BigQuery" width="70"/>
   <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/f/fa/Microsoft_Azure.svg/150px-Microsoft_Azure.svg.png" alt="Azure" width="50"/>
 </p>
 
